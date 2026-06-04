@@ -1072,15 +1072,26 @@ img { display: block; max-width: 100%; }
 .about2 {
   background: var(--cream);
 }
+/* Section-level header for team */
+.about2-header {
+  margin-bottom: 52px;
+  border-bottom: 1px solid var(--sand);
+  padding-bottom: 36px;
+}
 .about2-grid {
   display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 80px;
+  grid-template-columns: 300px 1fr;
+  gap: 64px;
   align-items: start;
 }
+/* Divider between team members */
+.about2-grid + .about2-grid {
+  margin-top: 64px;
+  padding-top: 64px;
+  border-top: 1px solid var(--sand);
+}
 .about2-visual {
-  position: sticky;
-  top: 96px;
+  position: static;
 }
 .about2-photo {
   width: 100%;
@@ -1135,7 +1146,23 @@ img { display: block; max-width: 100%; }
   font-size: clamp(28px, 3.5vw, 44px);
   color: var(--ink);
   line-height: 1.16;
-  margin-bottom: 24px;
+  margin-bottom: 0;
+}
+/* Individual person name + role */
+.about2-person-name {
+  font-family: var(--ff-serif);
+  font-size: clamp(22px, 2.6vw, 34px);
+  color: var(--ink);
+  line-height: 1.16;
+  margin-bottom: 5px;
+}
+.about2-person-role {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dk);
+  margin-bottom: 22px;
 }
 .about2-text p {
   font-size: 15px;
