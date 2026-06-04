@@ -830,25 +830,13 @@ img { display: block; max-width: 100%; }
   max-width: 560px;
   font-weight: 300;
 }
-/* Map container — aspect-ratio keeps all 3 states visible */
+/* Map container — D3 sets height dynamically */
 .states2-map-inner {
-  position: relative;
   width: 100%;
-  aspect-ratio: 1200 / 520;
-  min-height: 260px;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.08);
-}
-.states2-map-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  position: relative;
   background: #06070d;
-}
-.states2-map-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  border: 1px solid rgba(0,0,0,0.10);
 }
 /* Dark sub-banner for state tiles */
 .states2-tiles-band {
@@ -910,75 +898,107 @@ img { display: block; max-width: 100%; }
   padding-top: 12px;
   line-height: 1.7;
 }
-/* (map-wrap and map-svg defined in States section above) */
-.map-ctx-state {
-  fill: rgba(120,135,160,0.07);
-  stroke: rgba(160,180,210,0.14);
-  stroke-width: 0.6;
+/* ── D3 / TopoJSON map (accurate US state boundaries) ── */
+#ttg-map-svg {
+  display: block;
+  width: 100%;
+  opacity: 0;
+  transform: scale(1.06) translateX(20px);
 }
-.map-hl-state {
-  fill: rgba(196,160,90,0.13);
-  stroke: rgba(196,160,90,0.52);
-  stroke-width: 1;
+#ttg-map-svg.ttg-map-visible {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity   0.9s ease-out;
 }
-.map-state-abbr {
-  font-family: var(--ff-disp);
-  font-size: 20px;
-  fill: rgba(196,160,90,0.45);
-  letter-spacing: 0.14em;
-  pointer-events: none;
-  user-select: none;
+/* Context state fills */
+.ttg-state {
+  fill: #13151d;
+  stroke: #06070d;
+  stroke-width: 0.8;
+  stroke-linejoin: round;
 }
-.map-ctx-abbr {
-  font-family: var(--ff-mono);
-  font-size: 8px;
-  fill: rgba(180,195,215,0.22);
-  letter-spacing: 0.14em;
-  pointer-events: none;
-  user-select: none;
+/* Active state fills — AZ, CO, TX */
+.ttg-state-active {
+  fill: rgba(196,160,90,0.20);
+  stroke: #06070d;
+  stroke-width: 0.8;
+  cursor: default;
+  transition: fill 0.2s;
 }
-.map-dot {
-  fill: #c4a05a;
-}
-.map-dot.sm { fill: rgba(196,160,90,0.72); }
-.map-ring {
+.ttg-state-active:hover { fill: rgba(196,160,90,0.34); }
+/* Interior borders */
+.ttg-state-border {
   fill: none;
-  stroke: rgba(196,160,90,0.65);
-  stroke-width: 1;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: map-radar 2.6s ease-out infinite;
+  stroke: #06070d;
+  stroke-width: 0.6;
+  stroke-linejoin: round;
 }
-.map-ring.sm   { stroke: rgba(196,160,90,0.42); stroke-width: 0.8; }
-.map-ring.d1   { animation-delay: -0.87s; }
-.map-ring.d2   { animation-delay: -1.73s; }
-.map-city-line {
-  stroke: rgba(196,160,90,0.28);
-  stroke-width: 0.7;
+/* State-level pulse rings */
+@keyframes ttg-ring-expand {
+  0%   { r: 3;  stroke-opacity: 0.80; stroke-width: 1.8; }
+  100% { r: 30; stroke-opacity: 0;    stroke-width: 0.3; }
 }
-.map-city-name {
+.ttg-pulse-ring {
+  fill: none;
+  stroke: #c4a05a;
+  animation: ttg-ring-expand 2.8s ease-out infinite;
+}
+/* City-level rings (primary) */
+@keyframes ttg-city-ring-lg {
+  0%   { r: 2.5; stroke-opacity: 0.75; stroke-width: 1.5; }
+  100% { r: 16;  stroke-opacity: 0;    stroke-width: 0.3; }
+}
+.ttg-city-ring-lg {
+  fill: none;
+  stroke: #d8ba7a;
+  animation: ttg-city-ring-lg 2.4s ease-out infinite;
+}
+/* City-level rings (secondary) */
+@keyframes ttg-city-ring {
+  0%   { r: 2;  stroke-opacity: 0.65; stroke-width: 1.2; }
+  100% { r: 11; stroke-opacity: 0;    stroke-width: 0.3; }
+}
+.ttg-city-ring {
+  fill: none;
+  stroke: #c4a05a;
+  animation: ttg-city-ring 2.2s ease-out infinite;
+}
+.ttg-state-dot  { fill: #c4a05a; }
+.ttg-city-dot   { fill: #c4a05a; }
+/* State abbreviation labels */
+.ttg-state-label {
   font-family: var(--ff-mono);
   font-size: 9px;
-  fill: rgba(196,160,90,0.92);
-  letter-spacing: 0.10em;
+  fill: #c4a05a;
+  text-anchor: middle;
+  dominant-baseline: auto;
   pointer-events: none;
-  user-select: none;
+  letter-spacing: 0.14em;
+  font-weight: 500;
 }
-.map-city-name.sm {
-  font-size: 7.5px;
-  fill: rgba(196,160,90,0.62);
-}
-.map-graticule { stroke: rgba(255,255,255,0.035); stroke-width: 0.5; }
-.map-geo-lbl {
+/* City name labels */
+.ttg-city-label {
   font-family: var(--ff-mono);
   font-size: 7px;
-  fill: rgba(255,255,255,0.10);
-  letter-spacing: 0.12em;
+  fill: rgba(196,160,90,0.72);
+  text-anchor: middle;
+  dominant-baseline: auto;
   pointer-events: none;
+  letter-spacing: 0.07em;
 }
-@keyframes map-radar {
-  0%   { transform: scale(1);   opacity: 0.72; }
-  100% { transform: scale(6);   opacity: 0; }
+/* Loading state */
+.ttg-map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 480px;
+  background: #06070d;
+  color: rgba(196,160,90,0.45);
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* (states2-grid and state2-card defined in States section above) */

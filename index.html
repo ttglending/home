@@ -520,14 +520,13 @@
         <h2 class="states2-title">Licensed in 3 High-Growth Markets</h2>
         <p class="states2-sub">We focus on the fastest-growing investment property markets in the Southwest — single-family rentals, multifamily, and everything in between — where investor demand is strong and returns are real.</p>
       </div>
-      <!-- Map: viewBox 1200×520, x=50+(117-lon)*45.83, y=50+(43-lat)*25 — all 3 states visible -->
-      <div class="states2-map-inner">
-        <div class="states2-map-wrap" aria-hidden="true">
-        <svg class="states2-map-svg" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-          <!-- Background -->
-          <rect width="1200" height="520" fill="#06070d"/>
-
-          <!-- Graticule (x=50+(117-lon)*45.83 · y=50+(43-lat)*25) -->
+      <!-- D3 / TopoJSON map — accurate US Census boundaries, SW region -->
+      <div class="states2-map-inner" id="ttg-map-container">
+        <div class="ttg-map-loading" id="ttg-map-loading">Loading map&hellip;</div>
+        <svg id="ttg-map-svg"></svg>
+        <noscript><p style="padding:32px;color:rgba(196,160,90,0.6);font-size:12px;background:#06070d;">Map requires JavaScript. Active states: AZ, CO, TX.</p></noscript>
+        <!-- legacy placeholder (hidden) --><svg style="display:none">
+          <!-- removed -->
           <line class="map-graticule" x1="0" y1="100" x2="1200" y2="100"/>  <!-- 41°N -->
           <line class="map-graticule" x1="0" y1="125" x2="1200" y2="125"/>  <!-- 40°N -->
           <line class="map-graticule" x1="0" y1="200" x2="1200" y2="200"/>  <!-- 37°N -->
@@ -621,10 +620,7 @@
           <g><circle class="map-ring sm" cx="1041" cy="381" r="4.5"/><circle class="map-ring sm d1" cx="1041" cy="381" r="4.5"/><circle class="map-dot sm" cx="1041" cy="381" r="2.5"/><text x="1049" y="379" class="map-city-name sm" text-anchor="start">Houston</text></g>
           <!-- Corpus Christi (948,430) -->
           <g><circle class="map-ring sm" cx="948" cy="430" r="3.5"/><circle class="map-ring sm d1" cx="948" cy="430" r="3.5"/><circle class="map-dot sm" cx="948" cy="430" r="2"/><text x="955" y="428" class="map-city-name sm" text-anchor="start">Corpus Christi</text></g>
-          <!-- McAllen (910,470) -->
-          <g><circle class="map-ring sm" cx="910" cy="470" r="3.5"/><circle class="map-ring sm d1" cx="910" cy="470" r="3.5"/><circle class="map-dot sm" cx="910" cy="470" r="2"/><text x="917" y="468" class="map-city-name sm" text-anchor="start">McAllen</text></g>
-        </svg>
-        </div><!-- /states2-map-wrap -->
+        </svg><!-- /placeholder -->
       </div><!-- /states2-map-inner -->
     </div><!-- /container -->
 
@@ -977,5 +973,173 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <!-- D3 + TopoJSON — accurate US state boundaries -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+
+  <script>
+  (function () {
+    // ── Active states (FIPS → label + ring stagger) ──────────────
+    const ACTIVE = {
+       4: { abbr: 'AZ', delay: 0.0  },
+       8: { abbr: 'CO', delay: 0.5  },
+      48: { abbr: 'TX', delay: 1.0  },
+    };
+
+    // ── Context states shown in the SW region ────────────────────
+    const SW_FIPS = new Set([4, 8, 48, 35, 49, 40, 20, 31, 56, 32]);
+    // AZ CO TX NM UT OK KS NE WY NV
+
+    // ── State label overrides (centroid falls in bad spot) ───────
+    const GEO_CENTER = {
+      48: [-99.5, 31.2],   // TX — panhandle skews centroid
+      40: [-97.1, 35.5],   // OK
+    };
+
+    // ── City markers ─────────────────────────────────────────────
+    const CITIES = [
+      // Arizona
+      { lon: -112.07, lat: 33.45, name: 'Phoenix',       lg: true  },
+      { lon: -110.96, lat: 32.23, name: 'Tucson',        lg: false },
+      { lon: -111.65, lat: 35.20, name: 'Flagstaff',     lg: false },
+      { lon: -112.47, lat: 34.54, name: 'Prescott',      lg: false },
+      { lon: -111.76, lat: 34.87, name: 'Sedona',        lg: false },
+      // Colorado
+      { lon: -104.99, lat: 39.74, name: 'Denver',        lg: true  },
+      { lon: -105.27, lat: 40.01, name: 'Boulder',       lg: false },
+      { lon: -105.08, lat: 40.59, name: 'Ft. Collins',   lg: false },
+      { lon: -104.82, lat: 38.83, name: 'C. Springs',    lg: false },
+      { lon: -104.61, lat: 38.25, name: 'Pueblo',        lg: false },
+      { lon: -106.04, lat: 39.48, name: 'Breckenridge',  lg: false },
+      { lon: -106.37, lat: 39.64, name: 'Vail',          lg: false },
+      // Texas
+      { lon: -96.80,  lat: 32.78, name: 'Dallas–FW',     lg: true  },
+      { lon: -97.74,  lat: 30.27, name: 'Austin',        lg: false },
+      { lon: -98.49,  lat: 29.42, name: 'San Antonio',   lg: false },
+      { lon: -95.37,  lat: 29.76, name: 'Houston',       lg: false },
+      { lon: -101.83, lat: 35.22, name: 'Amarillo',      lg: false },
+      { lon: -101.87, lat: 33.58, name: 'Lubbock',       lg: false },
+      { lon: -106.60, lat: 31.80, name: 'El Paso',       lg: false },
+      { lon: -97.40,  lat: 27.80, name: 'Corpus Christi',lg: false },
+      { lon: -98.23,  lat: 26.20, name: 'McAllen',       lg: false },
+    ];
+
+    const container = document.getElementById('ttg-map-container');
+    const loading   = document.getElementById('ttg-map-loading');
+    const svgEl     = document.getElementById('ttg-map-svg');
+
+    function render(us) {
+      loading.style.display = 'none';
+
+      const W = container.clientWidth || 1200;
+      const H = Math.round(W * 0.54);
+
+      const allFeatures = topojson.feature(us, us.objects.states).features;
+      const swFeatures  = allFeatures.filter(f => SW_FIPS.has(+f.id));
+
+      // Mercator projection fitted to SW states with padding
+      const projection = d3.geoMercator()
+        .fitExtent([[60, 48], [W - 60, H - 48]], {
+          type: 'FeatureCollection', features: swFeatures
+        });
+      const path = d3.geoPath().projection(projection);
+
+      const svg = d3.select(svgEl)
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('width',  '100%')
+        .attr('height', H);
+
+      // Dark background
+      svg.append('rect')
+        .attr('width', W).attr('height', H)
+        .attr('fill', '#06070d');
+
+      // State fills (context + active)
+      svg.selectAll('path.ttg-state')
+        .data(swFeatures)
+        .enter().append('path')
+          .attr('class', d => ACTIVE[+d.id]
+            ? 'ttg-state ttg-state-active'
+            : 'ttg-state')
+          .attr('d', path);
+
+      // Interior borders (only between SW states)
+      svg.append('path')
+        .datum(topojson.mesh(us, us.objects.states,
+          (a, b) => a !== b && SW_FIPS.has(+a.id) && SW_FIPS.has(+b.id)
+        ))
+        .attr('class', 'ttg-state-border')
+        .attr('d', path);
+
+      // Markers on active states
+      swFeatures.forEach(f => {
+        const info = ACTIVE[+f.id];
+        if (!info) return;
+        const override = GEO_CENTER[+f.id];
+        const pos = override ? projection(override) : path.centroid(f);
+        if (!pos || isNaN(pos[0])) return;
+        const [cx, cy] = pos;
+
+        // Two staggered pulse rings
+        [0, 1.4].forEach(offset => {
+          svg.append('circle')
+            .attr('class', 'ttg-pulse-ring')
+            .attr('cx', cx).attr('cy', cy).attr('r', 3)
+            .style('animation-delay', (info.delay + offset) + 's');
+        });
+        svg.append('circle')
+          .attr('class', 'ttg-state-dot')
+          .attr('cx', cx).attr('cy', cy).attr('r', 2.5);
+        svg.append('text')
+          .attr('class', 'ttg-state-label')
+          .attr('x', cx).attr('y', cy + 12)
+          .text(info.abbr);
+      });
+
+      // City markers
+      CITIES.forEach((c, i) => {
+        const pos = projection([c.lon, c.lat]);
+        if (!pos || isNaN(pos[0])) return;
+        const [cx, cy] = pos;
+        const delay = i * 0.14;
+        const ringClass = c.lg ? 'ttg-city-ring-lg' : 'ttg-city-ring';
+        const rings = c.lg ? 2 : 1;
+
+        for (let k = 0; k < rings; k++) {
+          svg.append('circle')
+            .attr('class', ringClass)
+            .attr('cx', cx).attr('cy', cy)
+            .attr('r', c.lg ? 2.5 : 2)
+            .style('animation-delay', (delay + k * 1.2) + 's');
+        }
+        svg.append('circle')
+          .attr('class', 'ttg-city-dot')
+          .attr('cx', cx).attr('cy', cy)
+          .attr('r', c.lg ? 2.5 : 1.8);
+        svg.append('text')
+          .attr('class', 'ttg-city-label')
+          .attr('x', cx).attr('y', cy + 9)
+          .text(c.name);
+      });
+
+      // Scroll-triggered reveal (same as 1Oak)
+      const section = document.getElementById('states');
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          requestAnimationFrame(() => svgEl.classList.add('ttg-map-visible'));
+          obs.disconnect();
+        }
+      }, { threshold: 0.15 });
+      obs.observe(section);
+    }
+
+    d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
+      .then(render)
+      .catch(() => {
+        if (loading) loading.textContent = 'Map unavailable — check connection.';
+      });
+  })();
+  </script>
 </body>
 </html>
