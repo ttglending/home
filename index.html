@@ -1033,15 +1033,16 @@
       loading.style.display = 'none';
 
       const W = container.clientWidth || 1200;
-      const H = Math.round(W * 0.54);
+      const H = Math.round(W * 0.62);
 
       const allFeatures = topojson.feature(us, us.objects.states).features;
+      // Context states drawn for geographic reference
       const swFeatures  = allFeatures.filter(f => SW_FIPS.has(+f.id));
-
-      // Mercator projection fitted to SW states with padding
+      // Projection fitted ONLY to AZ + CO + TX — centers and zooms on those 3 states
+      const activeFeatures = allFeatures.filter(f => ACTIVE[+f.id]);
       const projection = d3.geoMercator()
-        .fitExtent([[60, 48], [W - 60, H - 48]], {
-          type: 'FeatureCollection', features: swFeatures
+        .fitExtent([[80, 60], [W - 80, H - 60]], {
+          type: 'FeatureCollection', features: activeFeatures
         });
       const path = d3.geoPath().projection(projection);
 
@@ -1050,10 +1051,7 @@
         .attr('width',  '100%')
         .attr('height', H);
 
-      // Dark background
-      svg.append('rect')
-        .attr('width', W).attr('height', H)
-        .attr('fill', '#06070d');
+      // No background rect — map sits on the cream section background
 
       // State fills (context + active)
       svg.selectAll('path.ttg-state')
@@ -1072,30 +1070,7 @@
         .attr('class', 'ttg-state-border')
         .attr('d', path);
 
-      // Markers on active states
-      swFeatures.forEach(f => {
-        const info = ACTIVE[+f.id];
-        if (!info) return;
-        const override = GEO_CENTER[+f.id];
-        const pos = override ? projection(override) : path.centroid(f);
-        if (!pos || isNaN(pos[0])) return;
-        const [cx, cy] = pos;
-
-        // Two staggered pulse rings
-        [0, 1.4].forEach(offset => {
-          svg.append('circle')
-            .attr('class', 'ttg-pulse-ring')
-            .attr('cx', cx).attr('cy', cy).attr('r', 3)
-            .style('animation-delay', (info.delay + offset) + 's');
-        });
-        svg.append('circle')
-          .attr('class', 'ttg-state-dot')
-          .attr('cx', cx).attr('cy', cy).attr('r', 2.5);
-        svg.append('text')
-          .attr('class', 'ttg-state-label')
-          .attr('x', cx).attr('y', cy + 12)
-          .text(info.abbr);
-      });
+      // ── No state-centroid pings — city markers only below ──
 
       // City markers
       CITIES.forEach((c, i) => {

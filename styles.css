@@ -830,13 +830,13 @@ img { display: block; max-width: 100%; }
   max-width: 560px;
   font-weight: 300;
 }
-/* Map container — D3 sets height dynamically */
+/* Map container — D3 sets height dynamically; cream background (no dark panel) */
 .states2-map-inner {
   width: 100%;
   overflow: hidden;
   position: relative;
-  background: #06070d;
-  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--cream);
+  border: 1px solid var(--sand);
 }
 /* Dark sub-banner for state tiles */
 .states2-tiles-band {
@@ -911,26 +911,26 @@ img { display: block; max-width: 100%; }
   transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
               opacity   0.9s ease-out;
 }
-/* Context state fills */
+/* Context state fills — warm grey floating on cream */
 .ttg-state {
-  fill: #13151d;
-  stroke: #06070d;
+  fill: #cdc8c0;
+  stroke: var(--cream);
   stroke-width: 0.8;
   stroke-linejoin: round;
 }
-/* Active state fills — AZ, CO, TX */
+/* Active state fills — AZ, CO, TX: TTG dark iron */
 .ttg-state-active {
-  fill: rgba(196,160,90,0.20);
-  stroke: #06070d;
+  fill: var(--iron);
+  stroke: var(--cream);
   stroke-width: 0.8;
   cursor: default;
   transition: fill 0.2s;
 }
-.ttg-state-active:hover { fill: rgba(196,160,90,0.34); }
-/* Interior borders */
+.ttg-state-active:hover { fill: var(--slate); }
+/* Interior borders — cream gap creates floating-island look */
 .ttg-state-border {
   fill: none;
-  stroke: #06070d;
+  stroke: var(--cream);
   stroke-width: 0.6;
   stroke-linejoin: round;
 }
@@ -977,11 +977,11 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.14em;
   font-weight: 500;
 }
-/* City name labels */
+/* City name labels — gold on dark iron state fill */
 .ttg-city-label {
   font-family: var(--ff-mono);
-  font-size: 7px;
-  fill: rgba(196,160,90,0.72);
+  font-size: 7.5px;
+  fill: rgba(212,186,122,0.85);
   text-anchor: middle;
   dominant-baseline: auto;
   pointer-events: none;
