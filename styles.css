@@ -808,44 +808,12 @@ img { display: block; max-width: 100%; }
    ============================================================ */
 .states2 {
   background: #07090e;
-  position: relative;
-  overflow: hidden;
-  min-height: 680px;
-}
-.states2::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom,
-    rgba(7,9,14,0.52) 0%,
-    rgba(7,9,14,0.30) 20%,
-    rgba(7,9,14,0.65) 55%,
-    rgba(7,9,14,0.95) 100%);
-  z-index: 0;
-  pointer-events: none;
-}
-.states2 .container {
-  position: relative;
-  z-index: 1;
-}
-.states2-map-wrap {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 0;
-  aspect-ratio: unset !important;
-  margin-bottom: 0 !important;
-  background: #06070d;
-}
-.states2-map-svg {
-  display: block;
-  width: 100%;
-  height: 100% !important;
-  max-height: none !important;
+  border-top: 1px solid rgba(196,160,90,0.20);
 }
 .states2-header {
-  margin-bottom: 48px;
+  margin-bottom: 36px;
   border-bottom: 1px solid rgba(255,255,255,0.07);
-  padding-bottom: 36px;
+  padding-bottom: 32px;
 }
 .states2-title {
   font-family: var(--ff-serif);
@@ -861,38 +829,90 @@ img { display: block; max-width: 100%; }
   max-width: 560px;
   font-weight: 300;
 }
-/* State cards — dark glass overlay on map */
-.states2 .states2-grid {
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.states2 .state2-card {
-  background: rgba(8,10,17,0.84);
-  border-right: 1px solid rgba(255,255,255,0.07);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.states2 .state2-card:hover { background: rgba(14,17,26,0.92); }
-.states2 .state2-card:last-child { border-right: none; }
-.states2 .state2-abbr { color: rgba(196,160,90,0.42); }
-.states2 .state2-card:hover .state2-abbr { color: rgba(196,160,90,0.68); }
-.states2 .state2-name { color: rgba(255,255,255,0.78); }
-.states2 .state2-desc { color: rgba(255,255,255,0.48); }
-.states2 .state2-cities { color: rgba(255,255,255,0.28); }
-/* Coverage map */
-.states2-map-wrap {
-  width: 100%;
-  margin-bottom: 52px;
-  aspect-ratio: 800 / 460;
-  background: #07090e;
-  border: 1px solid rgba(196,160,90,0.14);
-  overflow: hidden;
+/* Map + overlaid cards container */
+.states2-map-inner {
   position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+}
+.states2-map-inner::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(7,9,14,0.96) 0%, rgba(7,9,14,0.60) 45%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+.states2-map-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #06070d;
 }
 .states2-map-svg {
   display: block;
   width: 100%;
   height: 100%;
 }
+/* State cards overlaid at bottom of map */
+.states2-grid {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  z-index: 2;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.state2-card {
+  padding: 28px 30px 24px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  background: rgba(8,10,17,0.86);
+  transition: background var(--t);
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.state2-card:last-child { border-right: none; }
+.state2-card:hover { background: rgba(14,18,28,0.93); }
+.state2-abbr {
+  display: block;
+  font-family: var(--ff-disp);
+  font-size: 72px;
+  letter-spacing: 0.04em;
+  color: rgba(196,160,90,0.38);
+  line-height: 1;
+  margin-bottom: 10px;
+  transition: color var(--t);
+  user-select: none;
+}
+.state2-card:hover .state2-abbr { color: rgba(196,160,90,0.62); }
+.state2-name {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 8px;
+}
+.state2-desc {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.44);
+  line-height: 1.70;
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+.state2-cities {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.28);
+}
+/* (map-wrap and map-svg defined in States section above) */
 .map-ctx-state {
   fill: rgba(120,135,160,0.07);
   stroke: rgba(160,180,210,0.14);
@@ -963,59 +983,7 @@ img { display: block; max-width: 100%; }
   100% { transform: scale(6);   opacity: 0; }
 }
 
-.states2-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border: 1px solid var(--sand);
-}
-.state2-card {
-  padding: 44px 34px 36px;
-  border-right: 1px solid var(--sand);
-  background: var(--cream);
-  transition: background var(--t);
-  overflow: hidden;
-  position: relative;
-}
-.state2-card:last-child { border-right: none; }
-.state2-card:hover { background: var(--white); }
-.state2-abbr {
-  display: block;
-  font-family: var(--ff-disp);
-  font-size: 88px;
-  letter-spacing: 0.04em;
-  color: var(--rust);
-  line-height: 1;
-  margin-bottom: 14px;
-  transition: color var(--t);
-  user-select: none;
-}
-.state2-card:hover .state2-abbr { color: rgba(122,60,40,0.35); }
-.state2-name {
-  font-family: var(--ff-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 12px;
-}
-.state2-desc {
-  font-size: 13.5px;
-  color: var(--ash);
-  line-height: 1.75;
-  font-weight: 300;
-  margin-bottom: 18px;
-}
-.state2-cities {
-  font-family: var(--ff-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.06em;
-  color: var(--stone);
-  line-height: 1.7;
-  border-top: 1px solid var(--sand);
-  padding-top: 14px;
-}
+/* (states2-grid and state2-card defined in States section above) */
 
 /* ============================================================
    PROCESS
@@ -1972,9 +1940,10 @@ img { display: block; max-width: 100%; }
   .prog2-card:nth-child(2n) { border-right: none; }
   .prog2-card:nth-last-child(-n+3) { border-bottom: 1px solid var(--sand); }
   .prog2-card:nth-last-child(-n+2) { border-bottom: none; }
+  .states2-map-inner { height: 580px; }
   .states2-grid     { grid-template-columns: repeat(2, 1fr); }
   .state2-card:nth-child(2) { border-right: none; }
-  .state2-card:nth-child(3) { border-top: 1px solid var(--sand); }
+  .state2-card:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.07); }
   .why2-grid        { grid-template-columns: 1fr; }
   .about2-grid      { grid-template-columns: 1fr; }
   .about2-visual    { position: static; }
@@ -1987,6 +1956,7 @@ img { display: block; max-width: 100%; }
   .hero2-stats      { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .h2-stat          { padding: 0; border: none; }
   .programs2-grid   { grid-template-columns: 1fr; }
+  .states2-map-inner { height: 620px; }
   .states2-grid     { grid-template-columns: 1fr 1fr; }
   .process2-steps   { grid-template-columns: 1fr 1fr; }
   .ps2:nth-child(2) { border-right: none; }
@@ -2021,6 +1991,7 @@ img { display: block; max-width: 100%; }
 }
 @media (max-width: 480px) {
   .hero2-title      { font-size: clamp(52px, 15vw, 80px); }
+  .states2-map-inner { height: 700px; }
   .states2-grid     { grid-template-columns: 1fr; }
   .process2-steps   { grid-template-columns: 1fr; }
   .ps2              { border-right: none; border-bottom: 1px solid var(--sand); }
