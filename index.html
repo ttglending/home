@@ -469,22 +469,41 @@
             </div>
           </div>
         </div>
-        <div class="why2-metrics">
-          <div class="why2-metric">
-            <span class="w2m-val">24hr</span>
-            <span class="w2m-label">Pre-Approval</span>
+        <div class="why2-right">
+          <div class="why2-metrics">
+            <div class="why2-metric">
+              <span class="w2m-val">24hr</span>
+              <span class="w2m-label">Pre-Approval</span>
+            </div>
+            <div class="why2-metric">
+              <span class="w2m-val">32</span>
+              <span class="w2m-label">Lending Partners</span>
+            </div>
+            <div class="why2-metric">
+              <span class="w2m-val">$50K–$20M+</span>
+              <span class="w2m-label">Loan Range</span>
+            </div>
+            <div class="why2-metric">
+              <span class="w2m-val">3</span>
+              <span class="w2m-label">Licensed States</span>
+            </div>
           </div>
-          <div class="why2-metric">
-            <span class="w2m-val">32</span>
-            <span class="w2m-label">Lending Partners</span>
-          </div>
-          <div class="why2-metric">
-            <span class="w2m-val">$50K–$20M+</span>
-            <span class="w2m-label">Loan Range</span>
-          </div>
-          <div class="why2-metric">
-            <span class="w2m-val">3</span>
-            <span class="w2m-label">Licensed States</span>
+          <div class="why2-props">
+            <div class="w2p-head">Property Types We Finance</div>
+            <ul class="w2p-list">
+              <li>Land</li>
+              <li>Single Family Investment</li>
+              <li>Short Term Rentals (STR)</li>
+              <li>Fix &amp; Flip</li>
+              <li>Fix to Rent / BRRRR</li>
+              <li>Duplex · Triplex · Fourplex</li>
+              <li>Multifamily 5–20 Units</li>
+              <li>Multifamily 21–50+ Units</li>
+              <li>Rehab Multifamily</li>
+              <li>Building Conversion to MF</li>
+              <li>Ground-Up Construction</li>
+              <li>Commercial Mixed-Use</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -493,128 +512,227 @@
 
   <!-- STATES WE SERVE -->
   <section class="section states2" id="states">
-    <div class="container">
-      <div class="states2-header">
-        <div class="v2-label on-light">03 — Coverage Area</div>
-        <h2 class="states2-title">Licensed in 3 High-Growth Markets</h2>
-        <p class="states2-sub">We focus on the fastest-growing investment property markets in the Southwest and West Coast — single-family rentals and multifamily both — where investor demand is strong and opportunity is real.</p>
-      </div>
-      <!-- Coverage map — SW United States -->
-      <div class="states2-map-wrap">
-        <svg class="states2-map-svg" viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-          <!-- Graticule grid -->
-          <line class="map-graticule" x1="0" y1="31"  x2="800" y2="31"/>
-          <line class="map-graticule" x1="0" y1="61"  x2="800" y2="61"/>
-          <line class="map-graticule" x1="0" y1="153" x2="800" y2="153"/>
-          <line class="map-graticule" x1="0" y1="214" x2="800" y2="214"/>
-          <line class="map-graticule" x1="0" y1="366" x2="800" y2="366"/>
-          <line class="map-graticule" x1="67"  y1="0" x2="67"  y2="560"/>
-          <line class="map-graticule" x1="200" y1="0" x2="200" y2="560"/>
-          <line class="map-graticule" x1="265" y1="0" x2="265" y2="560"/>
-          <line class="map-graticule" x1="400" y1="0" x2="400" y2="560"/>
-          <line class="map-graticule" x1="467" y1="0" x2="467" y2="560"/>
-          <line class="map-graticule" x1="567" y1="0" x2="567" y2="560"/>
-          <line class="map-graticule" x1="667" y1="0" x2="667" y2="560"/>
-          <line class="map-graticule" x1="767" y1="0" x2="767" y2="560"/>
 
-          <!-- Context states (faint outlines) -->
-          <polygon class="map-ctx-state" points="98,0 265,0 265,153 98,153"/>                          <!-- Utah -->
-          <polygon class="map-ctx-state" points="265,0 498,0 498,31 265,31"/>                          <!-- Wyoming partial -->
-          <polygon class="map-ctx-state" points="498,0 800,0 800,61 498,61"/>                          <!-- Nebraska / South Dakota -->
-          <polygon class="map-ctx-state" points="498,61 800,61 800,153 498,153"/>                      <!-- Kansas -->
-          <polygon class="map-ctx-state" points="265,153 467,153 467,312 265,312"/>                    <!-- New Mexico -->
-          <polygon class="map-ctx-state" points="467,153 750,153 750,257 567,257 567,168 467,168"/>    <!-- Oklahoma -->
+    <!-- Accurate SW US coverage map — absolute background -->
+    <div class="states2-map-wrap" aria-hidden="true">
+        <svg class="states2-map-svg" viewBox="0 0 980 640" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin slice">
+          <!-- Background -->
+          <rect width="980" height="640" fill="#06070d"/>
 
-          <!-- Highlighted states: AZ · CO · TX -->
-          <polygon class="map-hl-state" points="265,31 498,31 498,153 265,153"/>
-          <polygon class="map-hl-state" points="98,153 265,153 265,327 73,327"/>
-          <polygon class="map-hl-state" points="467,168 567,168 767,253 767,370 733,401 650,497 600,479 537,391 467,397 348,312 467,312"/>
+          <!-- Graticule (x = 50+(117-lon)*36.67 · y = 40+(43-lat)*29.47) -->
+          <line class="map-graticule" x1="0" y1="99"  x2="980" y2="99"/>   <!-- 41°N -->
+          <line class="map-graticule" x1="0" y1="128" x2="980" y2="128"/>  <!-- 40°N -->
+          <line class="map-graticule" x1="0" y1="217" x2="980" y2="217"/>  <!-- 37°N -->
+          <line class="map-graticule" x1="0" y1="276" x2="980" y2="276"/>  <!-- 35°N -->
+          <line class="map-graticule" x1="0" y1="394" x2="980" y2="394"/>  <!-- 30°N -->
+          <line class="map-graticule" x1="0" y1="483" x2="980" y2="483"/>  <!-- 27°N -->
+          <line class="map-graticule" x1="158" y1="0" x2="158" y2="640"/>  <!-- 114°W -->
+          <line class="map-graticule" x1="270" y1="0" x2="270" y2="640"/>  <!-- 111°W -->
+          <line class="map-graticule" x1="341" y1="0" x2="341" y2="640"/>  <!-- 109°W -->
+          <line class="map-graticule" x1="452" y1="0" x2="452" y2="640"/>  <!-- 106°W -->
+          <line class="map-graticule" x1="491" y1="0" x2="491" y2="640"/>  <!-- 105°W -->
+          <line class="map-graticule" x1="563" y1="0" x2="563" y2="640"/>  <!-- 103°W -->
+          <line class="map-graticule" x1="673" y1="0" x2="673" y2="640"/>  <!-- 100°W -->
+          <line class="map-graticule" x1="790" y1="0" x2="790" y2="640"/>  <!-- 97°W -->
+          <line class="map-graticule" x1="893" y1="0" x2="893" y2="640"/>  <!-- 94°W -->
 
-          <!-- State abbreviation labels -->
-          <text x="381" y="104" class="map-state-abbr" text-anchor="middle">CO</text>
-          <text x="181" y="247" class="map-state-abbr" text-anchor="middle">AZ</text>
-          <text x="595" y="318" class="map-state-abbr" text-anchor="middle">TX</text>
+          <!-- ── Context states ── -->
+          <polygon class="map-ctx-state" points="158,69 341,69 341,217 158,217"/>             <!-- Utah -->
+          <polygon class="map-ctx-state" points="270,0 527,0 527,99 270,99"/>                 <!-- Wyoming partial -->
+          <polygon class="map-ctx-state" points="527,0 893,0 893,128 527,128"/>               <!-- Nebraska partial -->
+          <polygon class="map-ctx-state" points="563,128 893,128 893,217 563,217"/>           <!-- Kansas -->
+          <polygon class="map-ctx-state" points="341,217 563,217 563,370 341,370"/>           <!-- New Mexico -->
+          <polygon class="map-ctx-state" points="563,217 893,217 893,314 673,314 673,232 563,232"/> <!-- Oklahoma -->
+
+          <!-- ── Highlighted states: CO · AZ · TX ── -->
+          <!-- Colorado -->
+          <polygon class="map-hl-state" points="341,99 598,99 598,217 341,217"/>
+          <!-- Arizona (accurate western border following Colorado River) -->
+          <polygon class="map-hl-state" points="341,217 341,385 131,385 134,335 142,276 158,217"/>
+          <!-- Texas (accurate outline) -->
+          <polygon class="map-hl-state" points="563,232 673,232 710,249 783,291 820,314 874,323 893,394 882,440 827,453 783,488 765,544 729,541 673,512 618,444 563,435 508,432 431,370 563,370 563,232"/>
+
+          <!-- State abbreviations -->
+          <text x="469" y="170" class="map-state-abbr" text-anchor="middle">CO</text>
+          <text x="240" y="310" class="map-state-abbr" text-anchor="middle">AZ</text>
+          <text x="690" y="360" class="map-state-abbr" text-anchor="middle">TX</text>
           <!-- Context labels -->
-          <text x="181" y="78"  class="map-ctx-abbr" text-anchor="middle">UT</text>
-          <text x="366" y="234" class="map-ctx-abbr" text-anchor="middle">NM</text>
-          <text x="614" y="206" class="map-ctx-abbr" text-anchor="middle">OK</text>
-          <text x="624" y="107" class="map-ctx-abbr" text-anchor="middle">KS</text>
-          <!-- Geo reference -->
-          <text x="710" y="528" class="map-geo-lbl" text-anchor="middle">GULF OF MEXICO</text>
+          <text x="249" y="150" class="map-ctx-abbr" text-anchor="middle">UT</text>
+          <text x="452" y="300" class="map-ctx-abbr" text-anchor="middle">NM</text>
+          <text x="728" y="272" class="map-ctx-abbr" text-anchor="middle">OK</text>
+          <text x="728" y="175" class="map-ctx-abbr" text-anchor="middle">KS</text>
+          <!-- Geographic references -->
+          <text x="820" y="590" class="map-geo-lbl" text-anchor="middle">GULF OF MEXICO</text>
+          <text x="80"  y="310" class="map-geo-lbl" text-anchor="middle">MEXICO</text>
 
-          <!-- ═══ CITY MARKERS ═══ -->
+          <!-- ══════════════════════════════════════════ -->
+          <!-- CITY MARKERS                               -->
+          <!-- ══════════════════════════════════════════ -->
 
-          <!-- Phoenix, AZ -->
+          <!-- ── ARIZONA ── -->
+
+          <!-- Phoenix (primary) cx=231 cy=322 -->
           <g>
-            <circle class="map-ring"    cx="164" cy="261" r="6"/>
-            <circle class="map-ring d1" cx="164" cy="261" r="6"/>
-            <circle class="map-ring d2" cx="164" cy="261" r="6"/>
-            <circle class="map-dot"     cx="164" cy="261" r="3.5"/>
-            <line   class="map-city-line" x1="167" y1="258" x2="185" y2="244"/>
-            <text x="188" y="242" class="map-city-name" text-anchor="start">Phoenix</text>
+            <circle class="map-ring"    cx="231" cy="322" r="6"/>
+            <circle class="map-ring d1" cx="231" cy="322" r="6"/>
+            <circle class="map-ring d2" cx="231" cy="322" r="6"/>
+            <circle class="map-dot"     cx="231" cy="322" r="3.5"/>
+            <line class="map-city-line" x1="234" y1="319" x2="253" y2="305"/>
+            <text x="256" y="303" class="map-city-name" text-anchor="start">Phoenix</text>
+          </g>
+          <!-- Flagstaff cx=246 cy=270 -->
+          <g>
+            <circle class="map-ring sm"    cx="246" cy="270" r="4"/>
+            <circle class="map-ring sm d1" cx="246" cy="270" r="4"/>
+            <circle class="map-dot sm"     cx="246" cy="270" r="2"/>
+            <text x="252" y="268" class="map-city-name sm" text-anchor="start">Flagstaff</text>
+          </g>
+          <!-- Sedona cx=242 cy=279 -->
+          <g>
+            <circle class="map-dot sm" cx="242" cy="280" r="1.5"/>
+            <text x="222" y="285" class="map-city-name sm" text-anchor="end">Sedona</text>
+          </g>
+          <!-- Prescott cx=216 cy=289 -->
+          <g>
+            <circle class="map-ring sm"    cx="216" cy="289" r="3.5"/>
+            <circle class="map-ring sm d1" cx="216" cy="289" r="3.5"/>
+            <circle class="map-dot sm"     cx="216" cy="289" r="2"/>
+            <text x="210" y="287" class="map-city-name sm" text-anchor="end">Prescott</text>
+          </g>
+          <!-- Tucson cx=271 cy=357 -->
+          <g>
+            <circle class="map-ring sm"    cx="271" cy="357" r="4.5"/>
+            <circle class="map-ring sm d1" cx="271" cy="357" r="4.5"/>
+            <circle class="map-dot sm"     cx="271" cy="357" r="2.5"/>
+            <text x="279" y="361" class="map-city-name sm" text-anchor="start">Tucson</text>
           </g>
 
-          <!-- Tucson, AZ -->
+          <!-- ── COLORADO ── -->
+
+          <!-- Denver (primary) cx=491 cy=136 -->
           <g>
-            <circle class="map-ring sm"    cx="201" cy="300" r="4.5"/>
-            <circle class="map-ring sm d1" cx="201" cy="300" r="4.5"/>
-            <circle class="map-dot sm"     cx="201" cy="300" r="2.5"/>
-            <text x="209" y="304" class="map-city-name sm" text-anchor="start">Tucson</text>
+            <circle class="map-ring"    cx="491" cy="136" r="6"/>
+            <circle class="map-ring d1" cx="491" cy="136" r="6"/>
+            <circle class="map-ring d2" cx="491" cy="136" r="6"/>
+            <circle class="map-dot"     cx="491" cy="136" r="3.5"/>
+            <line class="map-city-line" x1="494" y1="133" x2="512" y2="120"/>
+            <text x="515" y="118" class="map-city-name" text-anchor="start">Denver</text>
+          </g>
+          <!-- Boulder cx=480 cy=128 -->
+          <g>
+            <circle class="map-ring sm"    cx="480" cy="128" r="3.5"/>
+            <circle class="map-ring sm d1" cx="480" cy="128" r="3.5"/>
+            <circle class="map-dot sm"     cx="480" cy="128" r="1.8"/>
+            <text x="474" y="126" class="map-city-name sm" text-anchor="end">Boulder</text>
+          </g>
+          <!-- Fort Collins cx=487 cy=111 -->
+          <g>
+            <circle class="map-ring sm"    cx="487" cy="111" r="3.5"/>
+            <circle class="map-ring sm d1" cx="487" cy="111" r="3.5"/>
+            <circle class="map-dot sm"     cx="487" cy="111" r="1.8"/>
+            <text x="493" y="109" class="map-city-name sm" text-anchor="start">Ft. Collins</text>
+          </g>
+          <!-- Breckenridge cx=452 cy=144 -->
+          <g>
+            <circle class="map-dot sm" cx="452" cy="144" r="1.8"/>
+            <text x="446" y="142" class="map-city-name sm" text-anchor="end">Breck.</text>
+          </g>
+          <!-- Vail cx=440 cy=139 -->
+          <g>
+            <circle class="map-dot sm" cx="440" cy="139" r="1.8"/>
+            <text x="434" y="137" class="map-city-name sm" text-anchor="end">Vail</text>
+          </g>
+          <!-- Colorado Springs cx=497 cy=163 -->
+          <g>
+            <circle class="map-ring sm"    cx="497" cy="163" r="4"/>
+            <circle class="map-ring sm d1" cx="497" cy="163" r="4"/>
+            <circle class="map-dot sm"     cx="497" cy="163" r="2.2"/>
+            <text x="504" y="167" class="map-city-name sm" text-anchor="start">C. Springs</text>
+          </g>
+          <!-- Pueblo cx=505 cy=180 -->
+          <g>
+            <circle class="map-ring sm"    cx="505" cy="180" r="3.5"/>
+            <circle class="map-ring sm d1" cx="505" cy="180" r="3.5"/>
+            <circle class="map-dot sm"     cx="505" cy="180" r="1.8"/>
+            <text x="511" y="184" class="map-city-name sm" text-anchor="start">Pueblo</text>
           </g>
 
-          <!-- Denver, CO -->
-          <g>
-            <circle class="map-ring"    cx="400" cy="69" r="6"/>
-            <circle class="map-ring d1" cx="400" cy="69" r="6"/>
-            <circle class="map-ring d2" cx="400" cy="69" r="6"/>
-            <circle class="map-dot"     cx="400" cy="69" r="3.5"/>
-            <line   class="map-city-line" x1="400" y1="65" x2="400" y2="49"/>
-            <text x="400" y="45" class="map-city-name" text-anchor="middle">Denver</text>
-          </g>
+          <!-- ── TEXAS ── -->
 
-          <!-- Colorado Springs, CO -->
+          <!-- Dallas–Fort Worth (primary) cx=780 cy=341 -->
           <g>
-            <circle class="map-ring sm"    cx="407" cy="97" r="4"/>
-            <circle class="map-ring sm d1" cx="407" cy="97" r="4"/>
-            <circle class="map-dot sm"     cx="407" cy="97" r="2"/>
-            <text x="416" y="101" class="map-city-name sm" text-anchor="start">Colo. Springs</text>
+            <circle class="map-ring"    cx="780" cy="341" r="6"/>
+            <circle class="map-ring d1" cx="780" cy="341" r="6"/>
+            <circle class="map-ring d2" cx="780" cy="341" r="6"/>
+            <circle class="map-dot"     cx="780" cy="341" r="3.5"/>
+            <line class="map-city-line" x1="784" y1="338" x2="800" y2="324"/>
+            <text x="803" y="322" class="map-city-name" text-anchor="start">Dallas–FW</text>
           </g>
-
-          <!-- Dallas–Fort Worth, TX -->
+          <!-- Amarillo cx=606 cy=269 -->
           <g>
-            <circle class="map-ring"    cx="664" cy="282" r="6"/>
-            <circle class="map-ring d1" cx="664" cy="282" r="6"/>
-            <circle class="map-ring d2" cx="664" cy="282" r="6"/>
-            <circle class="map-dot"     cx="664" cy="282" r="3.5"/>
-            <line   class="map-city-line" x1="668" y1="279" x2="685" y2="264"/>
-            <text x="688" y="262" class="map-city-name" text-anchor="start">Dallas–FW</text>
+            <circle class="map-ring sm"    cx="606" cy="269" r="4"/>
+            <circle class="map-ring sm d1" cx="606" cy="269" r="4"/>
+            <circle class="map-dot sm"     cx="606" cy="269" r="2.2"/>
+            <text x="598" y="267" class="map-city-name sm" text-anchor="end">Amarillo</text>
           </g>
-
-          <!-- Austin, TX -->
+          <!-- Lubbock cx=605 cy=318 -->
           <g>
-            <circle class="map-ring sm"    cx="643" cy="358" r="4.5"/>
-            <circle class="map-ring sm d1" cx="643" cy="358" r="4.5"/>
-            <circle class="map-dot sm"     cx="643" cy="358" r="2.5"/>
-            <line   class="map-city-line" x1="646" y1="355" x2="660" y2="343"/>
-            <text x="663" y="341" class="map-city-name sm" text-anchor="start">Austin</text>
+            <circle class="map-ring sm"    cx="605" cy="318" r="4"/>
+            <circle class="map-ring sm d1" cx="605" cy="318" r="4"/>
+            <circle class="map-dot sm"     cx="605" cy="318" r="2.2"/>
+            <text x="597" y="322" class="map-city-name sm" text-anchor="end">Lubbock</text>
           </g>
-
-          <!-- San Antonio, TX -->
+          <!-- El Paso cx=431 cy=370 -->
           <g>
-            <circle class="map-ring sm"    cx="616" cy="385" r="4"/>
-            <circle class="map-ring sm d1" cx="616" cy="385" r="4"/>
-            <circle class="map-dot sm"     cx="616" cy="385" r="2"/>
-            <text x="623" y="390" class="map-city-name sm" text-anchor="start">San Antonio</text>
+            <circle class="map-ring sm"    cx="435" cy="372" r="4"/>
+            <circle class="map-ring sm d1" cx="435" cy="372" r="4"/>
+            <circle class="map-dot sm"     cx="435" cy="372" r="2.2"/>
+            <text x="444" y="368" class="map-city-name sm" text-anchor="start">El Paso</text>
           </g>
-
-          <!-- Houston, TX -->
+          <!-- Austin cx=755 cy=415 -->
           <g>
-            <circle class="map-ring sm"    cx="720" cy="375" r="4.5"/>
-            <circle class="map-ring sm d1" cx="720" cy="375" r="4.5"/>
-            <circle class="map-dot sm"     cx="720" cy="375" r="2.5"/>
-            <text x="727" y="371" class="map-city-name sm" text-anchor="start">Houston</text>
+            <circle class="map-ring sm"    cx="755" cy="415" r="4.5"/>
+            <circle class="map-ring sm d1" cx="755" cy="415" r="4.5"/>
+            <circle class="map-dot sm"     cx="755" cy="415" r="2.5"/>
+            <line class="map-city-line" x1="758" y1="412" x2="772" y2="400"/>
+            <text x="775" y="398" class="map-city-name sm" text-anchor="start">Austin</text>
+          </g>
+          <!-- San Antonio cx=729 cy=440 -->
+          <g>
+            <circle class="map-ring sm"    cx="729" cy="440" r="4"/>
+            <circle class="map-ring sm d1" cx="729" cy="440" r="4"/>
+            <circle class="map-dot sm"     cx="729" cy="440" r="2.2"/>
+            <text x="720" y="452" class="map-city-name sm" text-anchor="end">San Antonio</text>
+          </g>
+          <!-- Houston cx=839 cy=430 -->
+          <g>
+            <circle class="map-ring sm"    cx="839" cy="430" r="4.5"/>
+            <circle class="map-ring sm d1" cx="839" cy="430" r="4.5"/>
+            <circle class="map-dot sm"     cx="839" cy="430" r="2.5"/>
+            <text x="848" y="428" class="map-city-name sm" text-anchor="start">Houston</text>
+          </g>
+          <!-- Corpus Christi cx=768 cy=488 -->
+          <g>
+            <circle class="map-ring sm"    cx="768" cy="488" r="3.5"/>
+            <circle class="map-ring sm d1" cx="768" cy="488" r="3.5"/>
+            <circle class="map-dot sm"     cx="768" cy="488" r="2"/>
+            <text x="776" y="492" class="map-city-name sm" text-anchor="start">Corpus Christi</text>
+          </g>
+          <!-- McAllen cx=738 cy=535 -->
+          <g>
+            <circle class="map-ring sm"    cx="738" cy="535" r="3.5"/>
+            <circle class="map-ring sm d1" cx="738" cy="535" r="3.5"/>
+            <circle class="map-dot sm"     cx="738" cy="535" r="2"/>
+            <text x="745" y="533" class="map-city-name sm" text-anchor="start">McAllen</text>
           </g>
         </svg>
+      </div>
+
+    <div class="container">
+      <div class="states2-header">
+        <div class="v2-label on-dark">03 — Coverage Area</div>
+        <h2 class="states2-title">Licensed in 3 High-Growth Markets</h2>
+        <p class="states2-sub">We focus on the fastest-growing investment property markets in the Southwest — single-family rentals and multifamily — where investor demand is strong and opportunity is real.</p>
       </div>
 
       <div class="states2-grid">

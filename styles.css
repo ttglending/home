@@ -709,15 +709,71 @@ img { display: block; max-width: 100%; }
   font-weight: 300;
 }
 
-/* Metrics grid — single stacked column, full height of left text */
+/* Right column wrapper — metrics + property list */
+.why2-right {
+  display: flex;
+  align-self: stretch;
+}
+
+/* Metrics grid — single stacked column */
 .why2-metrics {
+  flex: 0 0 50%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(4, 1fr);
   gap: 1px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.05);
-  align-self: stretch;
+}
+
+/* Property types list */
+.why2-props {
+  flex: 1;
+  background: var(--slate);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-left: none;
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.w2p-head {
+  font-family: var(--ff-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+.w2p-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+.w2p-list li {
+  font-family: var(--ff-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.55);
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.3;
+}
+.w2p-list li::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  opacity: 0.5;
+  flex-shrink: 0;
+  transform: rotate(45deg);
 }
 .why2-metric {
   background: var(--iron);
@@ -751,27 +807,77 @@ img { display: block; max-width: 100%; }
    STATES WE SERVE
    ============================================================ */
 .states2 {
-  background: var(--parchment);
+  background: #07090e;
+  position: relative;
+  overflow: hidden;
+  min-height: 680px;
+}
+.states2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(7,9,14,0.52) 0%,
+    rgba(7,9,14,0.30) 20%,
+    rgba(7,9,14,0.65) 55%,
+    rgba(7,9,14,0.95) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.states2 .container {
+  position: relative;
+  z-index: 1;
+}
+.states2-map-wrap {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0;
+  aspect-ratio: unset !important;
+  margin-bottom: 0 !important;
+  background: #06070d;
+}
+.states2-map-svg {
+  display: block;
+  width: 100%;
+  height: 100% !important;
+  max-height: none !important;
 }
 .states2-header {
-  margin-bottom: 56px;
-  border-bottom: 1px solid var(--sand);
-  padding-bottom: 40px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding-bottom: 36px;
 }
 .states2-title {
   font-family: var(--ff-serif);
   font-size: clamp(34px, 4.5vw, 52px);
-  color: var(--ink);
+  color: var(--white);
   line-height: 1.12;
   margin-bottom: 12px;
 }
 .states2-sub {
   font-size: 15px;
-  color: var(--ash);
+  color: rgba(255,255,255,0.55);
   line-height: 1.75;
   max-width: 560px;
   font-weight: 300;
 }
+/* State cards — dark glass overlay on map */
+.states2 .states2-grid {
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.states2 .state2-card {
+  background: rgba(8,10,17,0.84);
+  border-right: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.states2 .state2-card:hover { background: rgba(14,17,26,0.92); }
+.states2 .state2-card:last-child { border-right: none; }
+.states2 .state2-abbr { color: rgba(196,160,90,0.42); }
+.states2 .state2-card:hover .state2-abbr { color: rgba(196,160,90,0.68); }
+.states2 .state2-name { color: rgba(255,255,255,0.78); }
+.states2 .state2-desc { color: rgba(255,255,255,0.48); }
+.states2 .state2-cities { color: rgba(255,255,255,0.28); }
 /* Coverage map */
 .states2-map-wrap {
   width: 100%;
@@ -1908,7 +2014,8 @@ img { display: block; max-width: 100%; }
   }
   .nav2-links.open a { font-size: 14px; letter-spacing: 0.16em; }
   .hamburger2       { display: flex; }
-  .why2-metrics     { grid-template-columns: 1fr; }
+  .why2-right       { flex-direction: column; }
+  .why2-metrics     { flex: none; width: 100%; }
   .lender-tabs2     { overflow-x: auto; }
   .trust2-cities    { display: none; }
 }
