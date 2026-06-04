@@ -520,109 +520,16 @@
         <h2 class="states2-title">Licensed in 3 High-Growth Markets</h2>
         <p class="states2-sub">We focus on the fastest-growing investment property markets in the Southwest — single-family rentals, multifamily, and everything in between — where investor demand is strong and returns are real.</p>
       </div>
-      <!-- D3 / TopoJSON map — accurate US Census boundaries, SW region -->
-      <div class="states2-map-inner" id="ttg-map-container">
-        <div class="ttg-map-loading" id="ttg-map-loading">Loading map&hellip;</div>
-        <svg id="ttg-map-svg"></svg>
-        <noscript><p style="padding:32px;color:rgba(196,160,90,0.6);font-size:12px;background:#06070d;">Map requires JavaScript. Active states: AZ, CO, TX.</p></noscript>
-        <!-- legacy placeholder (hidden) --><svg style="display:none">
-          <!-- removed -->
-          <line class="map-graticule" x1="0" y1="100" x2="1200" y2="100"/>  <!-- 41°N -->
-          <line class="map-graticule" x1="0" y1="125" x2="1200" y2="125"/>  <!-- 40°N -->
-          <line class="map-graticule" x1="0" y1="200" x2="1200" y2="200"/>  <!-- 37°N -->
-          <line class="map-graticule" x1="0" y1="250" x2="1200" y2="250"/>  <!-- 35°N -->
-          <line class="map-graticule" x1="0" y1="325" x2="1200" y2="325"/>  <!-- 30°N -->
-          <line class="map-graticule" x1="0" y1="400" x2="1200" y2="400"/>  <!-- 27°N -->
-          <line class="map-graticule" x1="188" y1="0" x2="188" y2="520"/>   <!-- 114°W -->
-          <line class="map-graticule" x1="325" y1="0" x2="325" y2="520"/>   <!-- 111°W -->
-          <line class="map-graticule" x1="414" y1="0" x2="414" y2="520"/>   <!-- 109°W -->
-          <line class="map-graticule" x1="552" y1="0" x2="552" y2="520"/>   <!-- 106°W -->
-          <line class="map-graticule" x1="600" y1="0" x2="600" y2="520"/>   <!-- 105°W -->
-          <line class="map-graticule" x1="692" y1="0" x2="692" y2="520"/>   <!-- 103°W -->
-          <line class="map-graticule" x1="829" y1="0" x2="829" y2="520"/>   <!-- 100°W -->
-          <line class="map-graticule" x1="967" y1="0" x2="967" y2="520"/>   <!-- 97°W -->
-          <line class="map-graticule" x1="1104" y1="0" x2="1104" y2="520"/> <!-- 94°W -->
-
-          <!-- ── Context states ── -->
-          <polygon class="map-ctx-state" points="185,75 414,75 414,200 185,200"/>              <!-- Utah -->
-          <polygon class="map-ctx-state" points="185,50 735,50 735,100 185,100"/>              <!-- Wyoming partial -->
-          <polygon class="map-ctx-state" points="735,50 1104,50 1104,125 735,125"/>            <!-- Nebraska partial -->
-          <polygon class="map-ctx-state" points="735,125 1104,125 1104,200 735,200"/>          <!-- Kansas -->
-          <polygon class="map-ctx-state" points="414,200 692,200 692,330 414,330"/>            <!-- New Mexico -->
-          <polygon class="map-ctx-state" points="692,200 1081,200 1081,282 829,282 829,213 692,213"/> <!-- Oklahoma -->
-
-          <!-- ── Highlighted states: CO · AZ · TX ── -->
-          <!-- Colorado — accurate rectangle -->
-          <polygon class="map-hl-state" points="414,100 735,100 735,200 414,200"/>
-          <!-- Arizona — accurate Colorado River western border -->
-          <polygon class="map-hl-state" points="414,200 414,342 151,342 156,300 165,250 185,200"/>
-          <!-- Texas — accurate outline with panhandle, Red River, Gulf coast, Rio Grande -->
-          <polygon class="map-hl-state" points="692,213 829,213 875,228 967,263 1013,283 1081,290 1104,350 1113,380 1090,388 1022,398 967,430 944,478 898,475 829,450 760,393 692,388 623,383 527,330 692,330 692,213"/>
-
-          <!-- State abbreviation labels -->
-          <text x="574" y="162" class="map-state-abbr" text-anchor="middle">CO</text>
-          <text x="288" y="278" class="map-state-abbr" text-anchor="middle">AZ</text>
-          <text x="810" y="345" class="map-state-abbr" text-anchor="middle">TX</text>
-          <!-- Context labels -->
-          <text x="300" y="143" class="map-ctx-abbr" text-anchor="middle">UT</text>
-          <text x="553" y="270" class="map-ctx-abbr" text-anchor="middle">NM</text>
-          <text x="886" y="245" class="map-ctx-abbr" text-anchor="middle">OK</text>
-          <text x="920" y="165" class="map-ctx-abbr" text-anchor="middle">KS</text>
-          <text x="1050" y="500" class="map-geo-lbl" text-anchor="middle">GULF OF MEXICO</text>
-          <text x="100"  y="400" class="map-geo-lbl" text-anchor="middle">MEXICO</text>
-
-          <!-- ══ CITY MARKERS (x=50+(117-lon)*45.83 · y=50+(43-lat)*25) ══ -->
-
-          <!-- ── ARIZONA ── -->
-
-          <!-- ── ARIZONA ── -->
-          <!-- Phoenix (276,289) primary -->
-          <g><circle class="map-ring"    cx="276" cy="289" r="6"/><circle class="map-ring d1" cx="276" cy="289" r="6"/><circle class="map-ring d2" cx="276" cy="289" r="6"/><circle class="map-dot" cx="276" cy="289" r="3.5"/><line class="map-city-line" x1="279" y1="286" x2="296" y2="273"/><text x="299" y="271" class="map-city-name" text-anchor="start">Phoenix</text></g>
-          <!-- Flagstaff (295,245) -->
-          <g><circle class="map-ring sm" cx="295" cy="245" r="4"/><circle class="map-ring sm d1" cx="295" cy="245" r="4"/><circle class="map-dot sm" cx="295" cy="245" r="2"/><text x="301" y="243" class="map-city-name sm" text-anchor="start">Flagstaff</text></g>
-          <!-- Sedona (290,253) -->
-          <g><circle class="map-dot sm" cx="290" cy="253" r="1.5"/><text x="283" y="258" class="map-city-name sm" text-anchor="end">Sedona</text></g>
-          <!-- Prescott (258,262) -->
-          <g><circle class="map-ring sm" cx="258" cy="262" r="3.5"/><circle class="map-ring sm d1" cx="258" cy="262" r="3.5"/><circle class="map-dot sm" cx="258" cy="262" r="2"/><text x="251" y="260" class="map-city-name sm" text-anchor="end">Prescott</text></g>
-          <!-- Tucson (327,319) -->
-          <g><circle class="map-ring sm" cx="327" cy="319" r="4.5"/><circle class="map-ring sm d1" cx="327" cy="319" r="4.5"/><circle class="map-dot sm" cx="327" cy="319" r="2.5"/><text x="335" y="323" class="map-city-name sm" text-anchor="start">Tucson</text></g>
-
-          <!-- ── COLORADO ── -->
-          <!-- Denver (600,132) primary -->
-          <g><circle class="map-ring"    cx="600" cy="132" r="6"/><circle class="map-ring d1" cx="600" cy="132" r="6"/><circle class="map-ring d2" cx="600" cy="132" r="6"/><circle class="map-dot" cx="600" cy="132" r="3.5"/><line class="map-city-line" x1="603" y1="129" x2="620" y2="116"/><text x="623" y="114" class="map-city-name" text-anchor="start">Denver</text></g>
-          <!-- Boulder (588,125) -->
-          <g><circle class="map-ring sm" cx="588" cy="125" r="3.5"/><circle class="map-ring sm d1" cx="588" cy="125" r="3.5"/><circle class="map-dot sm" cx="588" cy="125" r="1.8"/><text x="581" y="123" class="map-city-name sm" text-anchor="end">Boulder</text></g>
-          <!-- Fort Collins (596,110) -->
-          <g><circle class="map-ring sm" cx="596" cy="110" r="3.5"/><circle class="map-ring sm d1" cx="596" cy="110" r="3.5"/><circle class="map-dot sm" cx="596" cy="110" r="1.8"/><text x="603" y="108" class="map-city-name sm" text-anchor="start">Ft. Collins</text></g>
-          <!-- Breckenridge (552,138) -->
-          <g><circle class="map-dot sm" cx="552" cy="138" r="1.8"/><text x="546" y="136" class="map-city-name sm" text-anchor="end">Breck.</text></g>
-          <!-- Vail (537,134) -->
-          <g><circle class="map-dot sm" cx="537" cy="134" r="1.8"/><text x="531" y="132" class="map-city-name sm" text-anchor="end">Vail</text></g>
-          <!-- Colorado Springs (608,154) -->
-          <g><circle class="map-ring sm" cx="608" cy="154" r="4"/><circle class="map-ring sm d1" cx="608" cy="154" r="4"/><circle class="map-dot sm" cx="608" cy="154" r="2.2"/><text x="615" y="158" class="map-city-name sm" text-anchor="start">C. Springs</text></g>
-          <!-- Pueblo (618,169) -->
-          <g><circle class="map-ring sm" cx="618" cy="169" r="3.5"/><circle class="map-ring sm d1" cx="618" cy="169" r="3.5"/><circle class="map-dot sm" cx="618" cy="169" r="1.8"/><text x="624" y="173" class="map-city-name sm" text-anchor="start">Pueblo</text></g>
-
-          <!-- ── TEXAS ── -->
-          <!-- Dallas–FW (976,306) primary -->
-          <g><circle class="map-ring"    cx="963" cy="306" r="6"/><circle class="map-ring d1" cx="963" cy="306" r="6"/><circle class="map-ring d2" cx="963" cy="306" r="6"/><circle class="map-dot" cx="963" cy="306" r="3.5"/><line class="map-city-line" x1="967" y1="303" x2="983" y2="290"/><text x="986" y="288" class="map-city-name" text-anchor="start">Dallas–FW</text></g>
-          <!-- Amarillo (745,245) -->
-          <g><circle class="map-ring sm" cx="745" cy="245" r="4"/><circle class="map-ring sm d1" cx="745" cy="245" r="4"/><circle class="map-dot sm" cx="745" cy="245" r="2.2"/><text x="737" y="243" class="map-city-name sm" text-anchor="end">Amarillo</text></g>
-          <!-- Lubbock (743,286) -->
-          <g><circle class="map-ring sm" cx="743" cy="286" r="4"/><circle class="map-ring sm d1" cx="743" cy="286" r="4"/><circle class="map-dot sm" cx="743" cy="286" r="2.2"/><text x="735" y="290" class="map-city-name sm" text-anchor="end">Lubbock</text></g>
-          <!-- El Paso (527,330) -->
-          <g><circle class="map-ring sm" cx="527" cy="330" r="4"/><circle class="map-ring sm d1" cx="527" cy="330" r="4"/><circle class="map-dot sm" cx="527" cy="330" r="2.2"/><text x="535" y="326" class="map-city-name sm" text-anchor="start">El Paso</text></g>
-          <!-- Austin (933,368) -->
-          <g><circle class="map-ring sm" cx="933" cy="368" r="4.5"/><circle class="map-ring sm d1" cx="933" cy="368" r="4.5"/><circle class="map-dot sm" cx="933" cy="368" r="2.5"/><line class="map-city-line" x1="936" y1="365" x2="950" y2="354"/><text x="953" y="352" class="map-city-name sm" text-anchor="start">Austin</text></g>
-          <!-- San Antonio (898,390) -->
-          <g><circle class="map-ring sm" cx="898" cy="390" r="4"/><circle class="map-ring sm d1" cx="898" cy="390" r="4"/><circle class="map-dot sm" cx="898" cy="390" r="2.2"/><text x="889" y="402" class="map-city-name sm" text-anchor="end">San Antonio</text></g>
-          <!-- Houston (1041,381) -->
-          <g><circle class="map-ring sm" cx="1041" cy="381" r="4.5"/><circle class="map-ring sm d1" cx="1041" cy="381" r="4.5"/><circle class="map-dot sm" cx="1041" cy="381" r="2.5"/><text x="1049" y="379" class="map-city-name sm" text-anchor="start">Houston</text></g>
-          <!-- Corpus Christi (948,430) -->
-          <g><circle class="map-ring sm" cx="948" cy="430" r="3.5"/><circle class="map-ring sm d1" cx="948" cy="430" r="3.5"/><circle class="map-dot sm" cx="948" cy="430" r="2"/><text x="955" y="428" class="map-city-name sm" text-anchor="start">Corpus Christi</text></g>
-        </svg><!-- /placeholder -->
-      </div><!-- /states2-map-inner -->
     </div><!-- /container -->
+
+    <!-- State shapes hover above tiles band; TX/CO/AZ order matches tile columns -->
+    <div class="container states2-shapes-outer">
+      <div class="states2-shapes-row">
+        <div class="state2-shape"><svg id="state-shape-tx" aria-label="Texas"></svg></div>
+        <div class="state2-shape"><svg id="state-shape-co" aria-label="Colorado"></svg></div>
+        <div class="state2-shape"><svg id="state-shape-az" aria-label="Arizona"></svg></div>
+      </div>
+    </div>
 
     <!-- ── State tiles: dark sub-banner ── -->
     <div class="states2-tiles-band">
@@ -979,141 +886,40 @@
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
   <script>
+  // Render individual state silhouettes above each tile column
   (function () {
-    // ── Active states (FIPS → label + ring stagger) ──────────────
-    const ACTIVE = {
-       4: { abbr: 'AZ', delay: 0.0  },
-       8: { abbr: 'CO', delay: 0.5  },
-      48: { abbr: 'TX', delay: 1.0  },
-    };
-
-    // ── Context states shown in the SW region ────────────────────
-    const SW_FIPS = new Set([4, 8, 48, 35, 49, 40, 20, 31, 56, 32]);
-    // AZ CO TX NM UT OK KS NE WY NV
-
-    // ── State label overrides (centroid falls in bad spot) ───────
-    const GEO_CENTER = {
-      48: [-99.5, 31.2],   // TX — panhandle skews centroid
-      40: [-97.1, 35.5],   // OK
-    };
-
-    // ── City markers ─────────────────────────────────────────────
-    const CITIES = [
-      // Arizona
-      { lon: -112.07, lat: 33.45, name: 'Phoenix',       lg: true  },
-      { lon: -110.96, lat: 32.23, name: 'Tucson',        lg: false },
-      { lon: -111.65, lat: 35.20, name: 'Flagstaff',     lg: false },
-      { lon: -112.47, lat: 34.54, name: 'Prescott',      lg: false },
-      { lon: -111.76, lat: 34.87, name: 'Sedona',        lg: false },
-      // Colorado
-      { lon: -104.99, lat: 39.74, name: 'Denver',        lg: true  },
-      { lon: -105.27, lat: 40.01, name: 'Boulder',       lg: false },
-      { lon: -105.08, lat: 40.59, name: 'Ft. Collins',   lg: false },
-      { lon: -104.82, lat: 38.83, name: 'C. Springs',    lg: false },
-      { lon: -104.61, lat: 38.25, name: 'Pueblo',        lg: false },
-      { lon: -106.04, lat: 39.48, name: 'Breckenridge',  lg: false },
-      { lon: -106.37, lat: 39.64, name: 'Vail',          lg: false },
-      // Texas
-      { lon: -96.80,  lat: 32.78, name: 'Dallas–FW',     lg: true  },
-      { lon: -97.74,  lat: 30.27, name: 'Austin',        lg: false },
-      { lon: -98.49,  lat: 29.42, name: 'San Antonio',   lg: false },
-      { lon: -95.37,  lat: 29.76, name: 'Houston',       lg: false },
-      { lon: -101.83, lat: 35.22, name: 'Amarillo',      lg: false },
-      { lon: -101.87, lat: 33.58, name: 'Lubbock',       lg: false },
-      { lon: -106.60, lat: 31.80, name: 'El Paso',       lg: false },
-      { lon: -97.40,  lat: 27.80, name: 'Corpus Christi',lg: false },
-      { lon: -98.23,  lat: 26.20, name: 'McAllen',       lg: false },
+    const SHAPES = [
+      { fips: 48, id: 'state-shape-tx' },  // Texas   — col 1
+      { fips:  8, id: 'state-shape-co' },  // Colorado — col 2
+      { fips:  4, id: 'state-shape-az' },  // Arizona  — col 3
     ];
 
-    const container = document.getElementById('ttg-map-container');
-    const loading   = document.getElementById('ttg-map-loading');
-    const svgEl     = document.getElementById('ttg-map-svg');
+    d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => {
+      const features = topojson.feature(us, us.objects.states).features;
 
-    function render(us) {
-      loading.style.display = 'none';
+      SHAPES.forEach(({ fips, id }) => {
+        const feature = features.find(f => +f.id === fips);
+        if (!feature) return;
+        const svgEl = document.getElementById(id);
+        if (!svgEl) return;
 
-      const W = container.clientWidth || 1200;
-      const H = Math.round(W * 0.62);
+        const W = svgEl.closest('.state2-shape').clientWidth || 320;
+        const H = 190;
 
-      const allFeatures = topojson.feature(us, us.objects.states).features;
-      // Context states drawn for geographic reference
-      const swFeatures  = allFeatures.filter(f => SW_FIPS.has(+f.id));
-      // Projection fitted ONLY to AZ + CO + TX — centers and zooms on those 3 states
-      const activeFeatures = allFeatures.filter(f => ACTIVE[+f.id]);
-      const projection = d3.geoMercator()
-        .fitExtent([[80, 60], [W - 80, H - 60]], {
-          type: 'FeatureCollection', features: activeFeatures
-        });
-      const path = d3.geoPath().projection(projection);
+        const projection = d3.geoMercator()
+          .fitExtent([[10, 10], [W - 10, H - 10]], feature);
+        const path = d3.geoPath().projection(projection);
 
-      const svg = d3.select(svgEl)
-        .attr('viewBox', `0 0 ${W} ${H}`)
-        .attr('width',  '100%')
-        .attr('height', H);
-
-      // No background rect — map sits on the cream section background
-
-      // State fills (context + active)
-      svg.selectAll('path.ttg-state')
-        .data(swFeatures)
-        .enter().append('path')
-          .attr('class', d => ACTIVE[+d.id]
-            ? 'ttg-state ttg-state-active'
-            : 'ttg-state')
-          .attr('d', path);
-
-      // Interior borders (only between SW states)
-      svg.append('path')
-        .datum(topojson.mesh(us, us.objects.states,
-          (a, b) => a !== b && SW_FIPS.has(+a.id) && SW_FIPS.has(+b.id)
-        ))
-        .attr('class', 'ttg-state-border')
-        .attr('d', path);
-
-      // ── No state-centroid pings — city markers only below ──
-
-      // City markers
-      CITIES.forEach((c, i) => {
-        const pos = projection([c.lon, c.lat]);
-        if (!pos || isNaN(pos[0])) return;
-        const [cx, cy] = pos;
-        const delay = i * 0.14;
-        const ringClass = c.lg ? 'ttg-city-ring-lg' : 'ttg-city-ring';
-        const rings = c.lg ? 2 : 1;
-
-        for (let k = 0; k < rings; k++) {
-          svg.append('circle')
-            .attr('class', ringClass)
-            .attr('cx', cx).attr('cy', cy)
-            .attr('r', c.lg ? 2.5 : 2)
-            .style('animation-delay', (delay + k * 1.2) + 's');
-        }
-        svg.append('circle')
-          .attr('class', 'ttg-city-dot')
-          .attr('cx', cx).attr('cy', cy)
-          .attr('r', c.lg ? 2.5 : 1.8);
-        svg.append('text')
-          .attr('class', 'ttg-city-label')
-          .attr('x', cx).attr('y', cy + 9)
-          .text(c.name);
+        d3.select(svgEl)
+          .attr('viewBox', `0 0 ${W} ${H}`)
+          .attr('width', '100%')
+          .attr('height', H)
+          .append('path')
+            .datum(feature)
+            .attr('class', 'state-shape-path')
+            .attr('d', path);
       });
-
-      // Scroll-triggered reveal (same as 1Oak)
-      const section = document.getElementById('states');
-      const obs = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-          requestAnimationFrame(() => svgEl.classList.add('ttg-map-visible'));
-          obs.disconnect();
-        }
-      }, { threshold: 0.15 });
-      obs.observe(section);
-    }
-
-    d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
-      .then(render)
-      .catch(() => {
-        if (loading) loading.textContent = 'Map unavailable — check connection.';
-      });
+    }).catch(() => {/* silently fail — states section still readable without shapes */});
   })();
   </script>
 </body>
