@@ -658,6 +658,7 @@
           <div class="v2-label on-light">06 — About TTG Lending</div>
           <h2 class="about2-title">Your Dedicated Real Estate Investment Lending Partner</h2>
           <p class="about2-text">I'm Eric Thomas, the loan officer behind TTG Lending. With over $50M+ in real estate sales volume and $30M+ in financing volume, I've built TTG Lending for investors who are serious about building wealth through real estate — whether that's a single-family rental, a small portfolio of duplexes, or a large apartment complex.</p>
+          <p class="about2-text">&nbsp;</p>
           <p class="about2-text">Licensed across Arizona, Colorado, and Texas, I bring deep market knowledge and a curated network of 32 wholesale lenders to every transaction. Whether you're buying your first SFR investment or scaling a 50-unit multifamily portfolio, I have the expertise and relationships to get your deal funded.</p>
           <div class="about2-creds">
             <div class="about2-cred">
@@ -888,26 +889,26 @@
   <script>
   // Render individual state silhouettes above each tile column
   (function () {
+    // h = SVG height; pad = fitExtent inset (smaller = shape fills more)
     const SHAPES = [
-      { fips: 48, id: 'state-shape-tx' },  // Texas   — col 1
-      { fips:  8, id: 'state-shape-co' },  // Colorado — col 2
-      { fips:  4, id: 'state-shape-az' },  // Arizona  — col 3
+      { fips: 48, id: 'state-shape-tx', h: 224, pad: 5 },  // TX — largest state, bigger container
+      { fips:  8, id: 'state-shape-co', h: 190, pad: 10 }, // CO
+      { fips:  4, id: 'state-shape-az', h: 190, pad: 10 }, // AZ
     ];
 
     d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => {
       const features = topojson.feature(us, us.objects.states).features;
 
-      SHAPES.forEach(({ fips, id }) => {
+      SHAPES.forEach(({ fips, id, h: H, pad }) => {
         const feature = features.find(f => +f.id === fips);
         if (!feature) return;
         const svgEl = document.getElementById(id);
         if (!svgEl) return;
 
         const W = svgEl.closest('.state2-shape').clientWidth || 320;
-        const H = 190;
 
         const projection = d3.geoMercator()
-          .fitExtent([[10, 10], [W - 10, H - 10]], feature);
+          .fitExtent([[pad, pad], [W - pad, H - pad]], feature);
         const path = d3.geoPath().projection(projection);
 
         d3.select(svgEl)
