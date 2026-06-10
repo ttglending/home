@@ -109,12 +109,27 @@ if (form && submitBtn) {
     if (btnLoading) btnLoading.style.display = 'inline';
 
     const payload = Object.fromEntries(new FormData(form).entries());
+    payload.access_key = 'd389720e-9145-4f05-9efd-a8fdd70fd44a';
+    payload.subject    = 'New Consumer Lead — TTG Lending';
 
-    await new Promise(r => setTimeout(r, 1500));
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+    } catch {
+      submitBtn.disabled = false;
+      if (btnText)    btnText.style.display    = 'inline';
+      if (btnLoading) btnLoading.style.display = 'none';
+      alert('Something went wrong. Please try again or call us directly.');
+      return;
+    }
 
     form.style.display = 'none';
     if (formSuccess) formSuccess.style.display = 'block';
-    console.log('TTG Lending v2 lead submitted:', payload);
   });
 }
 
