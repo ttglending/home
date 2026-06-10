@@ -120,7 +120,7 @@ if (form && submitBtn) {
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
-    } catch {
+    } catch (err) {
       submitBtn.disabled = false;
       if (btnText)    btnText.style.display    = 'inline';
       if (btnLoading) btnLoading.style.display = 'none';
@@ -129,7 +129,7 @@ if (form && submitBtn) {
     }
 
     form.style.display = 'none';
-    if (formSuccess) formSuccess.style.display = 'block';
+    if (formSuccess) { formSuccess.style.display = 'flex'; formSuccess.style.opacity = '1'; }
   });
 }
 
