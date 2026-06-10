@@ -464,7 +464,8 @@ img { display: block; max-width: 100%; }
   display: flex;
   gap: 0;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 .trust2-cities span {
   font-family: var(--ff-mono);
